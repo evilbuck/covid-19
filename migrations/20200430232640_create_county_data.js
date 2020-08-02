@@ -4,9 +4,11 @@ exports.up = function (knex) {
     t.date('date');
     t.string('county');
     t.string('state');
-    t.integer('fips');
+    t.integer('county_fips');
+    t.integer('state_fips');
     t.integer('cases');
     t.integer('deaths');
+
     t.timestamps(null, true);
 
     t.index('date');
