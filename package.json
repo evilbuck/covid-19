@@ -5,11 +5,23 @@
   "repository": "git@github.com:nytimes/covid-19-data.git",
   "author": "Buckley Robinson <buckleyrobinson@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "dev": "DEBUG=@feathersjs/*,express/router:*,express/router,feathersjs/application nodemon --inspect server",
+    "data:refresh": "node ./scripts/download_latest"
+  },
   "dependencies": {
+    "@feathersjs/express": "^4.5.7",
+    "@feathersjs/feathers": "^4.5.7",
+    "axios": "^0.19.2",
+    "cors": "^2.8.5",
     "csvtojson": "^2.0.10",
+    "feathers-knex": "^7.1.1",
     "knex": "^0.21.1",
     "lodash": "^4.17.15",
-    "moment": "^2.25.3",
+    "moment": "^2.27.0",
     "pg": "^8.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }

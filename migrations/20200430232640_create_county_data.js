@@ -11,6 +11,7 @@ exports.up = function (knex) {
 
     t.timestamps(null, true);
 
+    t.unique(['state', 'county', 'date']);
     t.index('date');
     t.index(['state', 'county']);
     t.index('deaths');
