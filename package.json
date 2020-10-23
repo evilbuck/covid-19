@@ -7,6 +7,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "DEBUG=@feathersjs/*,express/router:*,express/router,feathersjs/application nodemon --inspect server",
+    "db:create": "node ./scripts/create_database",
+    "db:migrate": "./node_modules/.bin/knex migrate:latest",
     "data:refresh": "node ./scripts/download_latest"
   },
   "dependencies": {
@@ -19,6 +21,7 @@
     "knex": "^0.21.1",
     "lodash": "^4.17.15",
     "moment": "^2.27.0",
+    "parse-database-url": "^0.3.0",
     "pg": "^8.0.3"
   },
   "devDependencies": {
