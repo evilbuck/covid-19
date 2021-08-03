@@ -2,19 +2,21 @@ const knex = require('../db');
 const moment = require('moment');
 const fs = require('fs');
 const csv = require('csvtojson');
-const nonDates = ['countyFIPS', 'County Name', 'State', 'stateFIPS'];
 const _ = require('lodash');
+const path = require('path');
+
+const nonDates = ['countyFIPS', 'County Name', 'State', 'stateFIPS', 'StateFIPS'];
 
 function handleError(error) {
   console.error('found error', error);
 }
 
-module.exports = async function (fileName) {
+async function main(fileName) {
   const stream = fs.createReadStream(fileName);
   // parse csv
   // Invoking csv returns a promise
 
-  csv()
+  await csv()
     .fromStream(stream)
     .subscribe(
       async (d) => {
@@ -22,24 +24,17 @@ module.exports = async function (fileName) {
         let dates = _.omit(d, nonDates);
 
         let countyRecords = [];
-        // let confirmedCounts = [];
         let prevTotal = 0;
         let updates = [];
         _(dates).each((count, dateString) => {
-          let parsed = moment(dateString, 'M/D/YY');
+          let parsed = moment(dateString, 'YYYY-MM-DD');
           let record = {
-            // date: parsed.toDate(),
-            // county: county['County Name'],
-            // state: county.State,
+            date: parsed.toDate(),
             cases: parseInt(count - prevTotal),
-            // county_fips: county.countyFIPS,
-            // state_fips: county.stateFIPS,
           };
-          // countyRecords.push(record);
           prevTotal = count;
-          // prevTotal += count;
           updates.push(
-            knex('us_county')
+            knex('covid_stats')
               .where({
                 date: parsed.toDate(),
                 state: county.State,
@@ -58,4 +53,19 @@ module.exports = async function (fileName) {
         console.log('done', data);
       }
     );
-};
+}
+
+module.exports = main;
+
+if (require.main === module) {
+  let caseCsvPath = path.resolve(`${__dirname}/../data/known.csv`);
+  main(caseCsvPath)
+    .then((result) => {
+      console.log('finished with result', result);
+      process.exit();
+    })
+    .catch((error) => {
+      console.error(error);
+      process.exit(error.code ?? 1);
+    });
+}

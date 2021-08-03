@@ -1,6 +1,9 @@
-const knownCasesUrl = `https://usafactsstatic.blob.core.windows.net/public/data/covid-19/covid_confirmed_usafacts.csv`;
-const deathsUrl = `https://usafactsstatic.blob.core.windows.net/public/data/covid-19/covid_deaths_usafacts.csv`;
-const countyPopulationUrl = `https://usafactsstatic.blob.core.windows.net/public/data/covid-19/covid_county_population_usafacts.csv`;
+// const knownCasesUrl = `https://usafactsstatic.blob.core.windows.net/public/data/covid-19/covid_confirmed_usafacts.csv`;
+const knownCasesUrl = `https://static.usafacts.org/public/data/covid-19/covid_confirmed_usafacts.csv`;
+// const deathsUrl = `https://usafactsstatic.blob.core.windows.net/public/data/covid-19/covid_deaths_usafacts.csv`;
+const deathsUrl = `https://static.usafacts.org/public/data/covid-19/covid_deaths_usafacts.csv`;
+// const countyPopulationUrl = `https://usafactsstatic.blob.core.windows.net/public/data/covid-19/covid_county_population_usafacts.csv`;
+const countyPopulationUrl = `https://static.usafacts.org/public/data/covid-19/covid_county_population_usafacts.csv`;
 const fs = require('fs');
 const axios = require('axios');
 const _ = require('lodash');
@@ -42,4 +45,11 @@ async function main() {
   // console.log('done with deaths by county');
 }
 
-main();
+main().then((result) => {
+  console.log(result)
+  process.exit()
+})
+.catch((error) => {
+  console.error(error)
+  process.exit(1)
+});

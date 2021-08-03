@@ -7,6 +7,7 @@ module.exports = {
       database: 'covid_data_dev',
       user: 'postgres',
       password: 'test123',
+      port: 5432
     },
     pool: {
       min: 2,
