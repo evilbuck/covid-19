@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@feathersjs/adapter-commons@^4.5.2":
+"@feathersjs/adapter-commons@^4.5.11", "@feathersjs/adapter-commons@^4.5.2":
   version "4.5.11"
   resolved "https://registry.yarnpkg.com/@feathersjs/adapter-commons/-/adapter-commons-4.5.11.tgz#b7eaa9a9124591aa639f9080a7522fa60fb29915"
   integrity sha512-qJ+P/6GLR3KfXhzgRkvl3p66YmaTxLO1js1Jzs+d5QnnUYx+jWSV7tzYVZoVjQSlF8ht/zh9N5qfh0RV9w1E+w==
@@ -783,6 +783,14 @@ feathers-knex@^7.1.1:
     "@feathersjs/errors" "^4.5.3"
     debug "^4.1.1"
     is-plain-object "^3.0.1"
+
+feathers-objection@^7.5.0:
+  version "7.5.0"
+  resolved "https://registry.yarnpkg.com/feathers-objection/-/feathers-objection-7.5.0.tgz#e3b39791057509d4187aa18f0f8206c633b54301"
+  integrity sha512-BcpR+OZEftIbPUlHpgub2UfmP8/F7675bkIwnsqbLcKMuJwfDfZZYRayMXSzb2l9upZZTsOVI6JI0IeQj4+X5g==
+  dependencies:
+    "@feathersjs/adapter-commons" "^4.5.11"
+    "@feathersjs/errors" "^4.5.11"
 
 fill-range@^4.0.0:
   version "4.0.0"

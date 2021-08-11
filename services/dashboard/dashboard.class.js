@@ -4,14 +4,13 @@ class Dashboard {
   async find(params) {
     console.log('what what');
     let report = await Report.query()
-      .select('state')
+      .select('state', 'date')
       .sum('deaths as deaths')
       .sum('cases as cases')
       .groupBy('state', 'date')
       .debug();
 
     return { data: report };
-    // return { test: 'tada' };
   }
 }
 
