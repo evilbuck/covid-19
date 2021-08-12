@@ -1,9 +1,11 @@
 const knex = require('../db');
+const path = require('path');
 const moment = require('moment');
 const fs = require('fs');
 const csv = require('csvtojson');
 const nonDates = ['countyFIPS', 'County Name', 'State', 'stateFIPS'];
 const _ = require('lodash');
+const main = require('./import_cases');
 
 function handleError(error) {
   console.error('found error', error);
@@ -23,7 +25,12 @@ module.exports = async function (fileName) {
           state: d.State,
           population: d.population,
         };
-        return knex('counties').insert(data);
+        return Promise.all([
+          knex('counties').insert(data),
+          knex('covid_stats')
+            .update({ population: data.population })
+            .where({ county_fips: d.countyFIPS }),
+        ]);
       },
       handleError,
       (data) => {
@@ -31,3 +38,14 @@ module.exports = async function (fileName) {
       }
     );
 };
+
+if (require.main === module) {
+  let csvPath = path.resolve(`${__dirname}/../data/county_population.csv`);
+  main(csvPath)
+    .then((result) => {
+      console.log('done', result);
+    })
+    .catch((error) => {
+      console.error('error', error);
+    });
+}

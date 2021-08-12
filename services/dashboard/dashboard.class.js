@@ -5,6 +5,7 @@ class Dashboard {
     console.log('what what');
     let report = await Report.query()
       .select('state', 'date')
+      .sum('population as population')
       .sum('deaths as deaths')
       .sum('cases as cases')
       .groupBy('state', 'date')
