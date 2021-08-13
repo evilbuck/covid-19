@@ -1,21 +1,18 @@
-// const knownCasesUrl = `https://usafactsstatic.blob.core.windows.net/public/data/covid-19/covid_confirmed_usafacts.csv`;
 const knownCasesUrl = `https://static.usafacts.org/public/data/covid-19/covid_confirmed_usafacts.csv`;
-// const deathsUrl = `https://usafactsstatic.blob.core.windows.net/public/data/covid-19/covid_deaths_usafacts.csv`;
 const deathsUrl = `https://static.usafacts.org/public/data/covid-19/covid_deaths_usafacts.csv`;
-// const countyPopulationUrl = `https://usafactsstatic.blob.core.windows.net/public/data/covid-19/covid_county_population_usafacts.csv`;
 const countyPopulationUrl = `https://static.usafacts.org/public/data/covid-19/covid_county_population_usafacts.csv`;
+
 const fs = require('fs');
 const axios = require('axios');
 const _ = require('lodash');
-const etlCounty = require('../import_usa_facts');
-const path = require('path');
-const knex = require('../db');
-const processCsvs = require('./import_deaths');
 
 const dataUrls = {
   known: knownCasesUrl,
   deaths: deathsUrl,
   county_population: countyPopulationUrl,
+  vaccinations: `https://data.cdc.gov/api/views/w9zu-fywh/rows.csv?accessType=DOWNLOAD`,
+  vaccinations_by_jurisdiction: `https://data.cdc.gov/api/views/unsk-b7fc/rows.csv?accessType=DOWNLOAD`,
+  vaccinations_by_county: `https://data.cdc.gov/api/views/8xkx-amqh/rows.csv?accessType=DOWNLOAD`,
 };
 
 async function main() {
@@ -29,27 +26,18 @@ async function main() {
   );
 
   console.log('done downloading');
-  await processCsvs();
-  // process.exit(0);
-  // console.log('etl deaths by county');
-  // await knex('us_county').del();
-  // await etlCounty(path.resolve(`${__dirname}/../data/deaths.csv`));
-  // console.log('etl done');
-  // let deathCounts = await etlCounty(path.resolve(`${__dirname}/../data/deaths.csv`));
-  // console.log('deathcounts', deathCounts.length, '\n', deathCounts.slice(0, 5));
-  // console.log('deleting us_county');
-  // console.log('done deleting us_county');
 
-  // console.log('inserting');
-  // await knex('us_county').insert(deathCounts);
-  // console.log('done with deaths by county');
+  return 'done';
 }
 
-main().then((result) => {
-  console.log(result)
-  process.exit()
-})
-.catch((error) => {
-  console.error(error)
-  process.exit(1)
-});
+if (require.main === module) {
+  main()
+    .then((result) => {
+      console.log(result);
+      process.exit();
+    })
+    .catch((error) => {
+      console.error(error);
+      process.exit(1);
+    });
+}

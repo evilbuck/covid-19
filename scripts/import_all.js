@@ -20,7 +20,9 @@ async function main() {
   console.log('importing population');
   await importPopulations(path.resolve(`${__dirname}/../data/county_population.csv`));
 
-  console.log('etl done');
+  // console.log('etl done');
+
+  return 'etl done';
 }
 
 module.exports = main;
