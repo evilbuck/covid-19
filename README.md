@@ -9,7 +9,6 @@
 
 
 It consists of two tables. `covid_stats` which contains deaths and cases by county and `counties` which contains population information.
-They're poorly named for historical reasons. Feel free to change them in the migrations `knex migrate:make change_to_something_sane`
 
 There are a couple basic reports that I must have used for something and probably still work. They're based on [feathersjs](https://feathersjs.com) service pattern.
 
