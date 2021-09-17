@@ -9,7 +9,8 @@
     "dev": "DEBUG=@feathersjs/*,express/router:*,express/router,feathersjs/application nodemon --inspect server",
     "db:create": "node ./scripts/create_database",
     "db:migrate": "./node_modules/.bin/knex migrate:latest",
-    "data:refresh": "node ./scripts/download_latest"
+    "data:download": "node ./scripts/download_latest",
+    "data:refresh": "node ./scripts/import_all"
   },
   "dependencies": {
     "@feathersjs/express": "^4.5.7",
